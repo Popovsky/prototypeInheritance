@@ -52,9 +52,18 @@ myArrayProto.filter = function (callback) {
     }
     return array;
 }
+myArrayProto.map = function (callback) {
+    let array = new MyArray();
+    for (let i = 0; i < this.length; i++) {
+        array.push(callback(this[i], i, this));
+    }
+    return array;
+}
 
 MyArray.prototype = myArrayProto;
 
 const array1 = new MyArray();
 array1.push(1, 2, 3, 4, 5, 6, 7, 8, 9);
 const array2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+console.log(array1.map(el => el * 2));
+console.log(array2.map(el => el * 2));
