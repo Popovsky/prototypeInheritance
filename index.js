@@ -34,12 +34,18 @@ myArrayProto.includes = function (searchElement, fromIndex = 0) {
     }
     return false;
 }
+myArrayProto.join = function (separator = ',') {
+    let string = '';
+    for (let i = 0; i < this.length; i++) {
+        if (i < this.length - 1) {
+            string += this[i] + separator;
+        } else string += this[i];
+    }
+    return string;
+}
 
 MyArray.prototype = myArrayProto;
 
 const array1 = new MyArray();
-array1.push(1,2,3,4,5,6,7,8,9);
-const array2 = [1,2,3,4,5,6,7,8,9];
-
-console.log(array1.includes(3, -8));
-console.log(array2.includes(4));
+array1.push(1, 2, 3, 4, 5, 6, 7, 8, 9);
+const array2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
