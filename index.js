@@ -16,13 +16,30 @@ myArrayProto.push = function (...item) {
 myArrayProto.find = function (callback) {
     let element;
     for (let i = 0; i < this.length; i++) {
-        if (callback(this[i], i, this)){
+        if (callback(this[i], i, this)) {
             element = this[i];
             break;
         }
     }
     return element;
 }
+myArrayProto.includes = function (searchElement, fromIndex = 0) {
+    if (fromIndex < 0) {
+        fromIndex = this.length + fromIndex;
+    }
+    for (let i = fromIndex; i < this.length; i++) {
+        if (this[i] === searchElement) {
+            return true;
+        }
+    }
+    return false;
+}
 
 MyArray.prototype = myArrayProto;
 
+const array1 = new MyArray();
+array1.push(1,2,3,4,5,6,7,8,9);
+const array2 = [1,2,3,4,5,6,7,8,9];
+
+console.log(array1.includes(3, -8));
+console.log(array2.includes(4));
