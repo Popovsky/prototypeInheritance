@@ -59,11 +59,26 @@ myArrayProto.map = function (callback) {
     }
     return array;
 }
+myArrayProto.reduce = function (callback, initialValue) {
+    let currentValue;
+    let accumulator;
+    if (initialValue === undefined) {
+        currentValue = 1;
+        accumulator = this[0];
+    } else {
+        currentValue = 0;
+        accumulator = initialValue;
+    }
+    for (let i = currentValue; i < this.length; i++) {
+        accumulator = callback(accumulator, this[i], i, this);
+    }
+    return accumulator;
+}
 
 MyArray.prototype = myArrayProto;
 
 const array1 = new MyArray();
 array1.push(1, 2, 3, 4, 5, 6, 7, 8, 9);
 const array2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-console.log(array1.map(el => el * 2));
-console.log(array2.map(el => el * 2));
+console.log(array1.reduce((acc, el) => acc + el));
+console.log(array2.reduce((acc, el) => acc + el));
