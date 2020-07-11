@@ -12,7 +12,7 @@ myArrayProto.push = function (...item) {
         this[this.length++] = item[i];
     }
     return this.length;
-};
+}
 myArrayProto.find = function (callback) {
     let element;
     for (let i = 0; i < this.length; i++) {
@@ -42,6 +42,15 @@ myArrayProto.join = function (separator = ',') {
         } else string += this[i];
     }
     return string;
+}
+myArrayProto.filter = function (callback) {
+    let array = new MyArray();
+    for (let i = 0; i < this.length; i++) {
+        if (callback(this[i], i, this)) {
+            array.push(this[i]);
+        }
+    }
+    return array;
 }
 
 MyArray.prototype = myArrayProto;
