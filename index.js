@@ -13,10 +13,16 @@ myArrayProto.push = function (...item) {
     }
     return this.length;
 };
+myArrayProto.find = function (callback) {
+    let element;
+    for (let i = 0; i < this.length; i++) {
+        if (callback(this[i], i, this)){
+            element = this[i];
+            break;
+        }
+    }
+    return element;
+}
 
 MyArray.prototype = myArrayProto;
 
-const arr = new MyArray();
-arr.push(1, 2, 3, 4, 5, 6, 7, 8, 9);
-
-console.log(arr);
