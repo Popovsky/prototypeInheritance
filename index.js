@@ -2,7 +2,7 @@ function MyArray() {
     this.length = 0;
 }
 
-MyArray.isMyArray = function (array) {
+MyArray.isMyArray = function (array = new MyArray()) {
     return array instanceof MyArray;
 };
 
@@ -80,24 +80,6 @@ myArrayProto.pop = function () {
     --this.length;
     return lastElement;
 }
-
-myArrayProto.concat = function concat() {
-    const newArr = new this.constructor();
-    for (let i = 0; i < this.length; i++) {
-        newArr.push(this[i]);
-    }
-    for (let i = 0; i < arguments.length; i++) {
-        if (arguments[i] instanceof MyArray) {
-            for (let j = 0; j < arguments[i].length; j++) {
-                newArr.push(arguments[i][j]);
-            }
-            continue;
-        }
-        newArr.push(arguments[i]);
-    }
-    return newArr;
-};
-
 myArrayProto.flat = function (depth = 1) {
     let array = new MyArray();
     for (let i = 0; i < this.length; i++) {
