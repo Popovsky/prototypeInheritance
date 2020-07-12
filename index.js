@@ -74,11 +74,17 @@ myArrayProto.reduce = function (callback, initialValue) {
     }
     return accumulator;
 }
+myArrayProto.pop = function () {
+    let lastElement = this[this.length - 1];
+    delete this[this.length - 1];
+    --this.length;
+    return lastElement;
+}
 
 MyArray.prototype = myArrayProto;
 
 const array1 = new MyArray();
 array1.push(1, 2, 3, 4, 5, 6, 7, 8, 9);
 const array2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-console.log(array1.reduce((acc, el) => acc + el));
-console.log(array2.reduce((acc, el) => acc + el));
+console.log(array1.pop());
+console.log(array2.pop());
