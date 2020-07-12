@@ -81,10 +81,41 @@ myArrayProto.pop = function () {
     return lastElement;
 }
 
+myArrayProto.concat = function concat() {
+    const newArr = new this.constructor();
+    for (let i = 0; i < this.length; i++) {
+        newArr.push(this[i]);
+    }
+    for (let i = 0; i < arguments.length; i++) {
+        if (arguments[i] instanceof MyArray) {
+            for (let j = 0; j < arguments[i].length; j++) {
+                newArr.push(arguments[i][j]);
+            }
+            continue;
+        }
+        newArr.push(arguments[i]);
+    }
+    return newArr;
+};
+
+myArrayProto.flat = function (depth = 1) {
+    let array = new MyArray();
+    for (let i = 0; i < this.length; i++) {
+        if (MyArray.isMyArray(this[i]) && depth-- > 0) {
+            this[i].flat(depth).map(el => array.push(el));
+        } else array.push(this[i]);
+    }
+    return array;
+}
+
 MyArray.prototype = myArrayProto;
 
 const array1 = new MyArray();
-array1.push(1, 2, 3, 4, 5, 6, 7, 8, 9);
-const array2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-console.log(array1.pop());
-console.log(array2.pop());
+const array3 = new MyArray();
+const array4 = new MyArray();
+array4.push(1, 2, 3);
+array3.push(1, 2, 3, array4);
+array1.push(1, 2, 3, array3, 4, 5, 6, 7, 8, 9);
+const array2 = [1, 2, 3, [1, 2, 3], 4, 5, 6, 7, 8, 9];
+console.log(array1.flat());
+console.log(array2.flat());
